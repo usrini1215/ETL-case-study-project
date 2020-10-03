@@ -11,6 +11,7 @@ To extract data from "data.fivethirtyeight.com" + Twitter to transform and analy
 
 
 
+
 Technical Aspects
 #EXTRACT 
 Data Sources:
@@ -40,20 +41,21 @@ Twitter API to get data on Incumbent and Challenger data (2 twitter scrapes)
 
 #TRANSFORM :  
 The csv's were loaded into a pandas dataframe where we cleaned it up by dropping unwanted columns, renaming some, updating data to clean it up.  These were the various transformation steps taken:
-    - Drop unwanted columns in the data which were repetitive across the whole csv
-    - Rename columns to make relevance
-    - One of the csv was of a different structure where Trump and Biden data were in different records.  So did a 'loc' to locate the separate records for each candidate, split them, and merged back by 'Date' so the structure matched out other file.
-    -After merging we had to rename the merged columns as well
-    - Twitter data was limited to latest responses on a particular tweet and a certain number of replies only, just so we can filter to a manageable number of tweets.
-    - Twitter data was also converted to a dataframe from csv and left as 'usr' and 'text' 
+
+- Drop unwanted columns in the data which were repetitive across the whole csv
+- Rename columns to make relevance
+- One of the csv was of a different structure where Trump and Biden data were in different records.  So did a 'loc' to locate the separate records for each candidate, split them, and merged back by 'Date' so the structure matched out other file.
+ -After merging we had to rename the merged columns as well
+- Twitter data was limited to latest responses on a particular tweet and a certain number of replies only, just so we can filter to a manageable number of tweets.
+- Twitter data was also converted to a dataframe from csv and left as 'usr' and 'text' 
 
 
 
 
-#LOAD : Used ‘pymongo’ to load them into Mongo DB into one database, 4 collections for the 4 data sets.
+#LOAD : Used √îpymongo√ï to load them into Mongo DB into one database, 4 collections for the 4 data sets.
 - We decided to go with Mongo as we dealt with a data set like Elections, which is continually changing in structure so anytime we re-extract this data, we could use the Mongo script as is even if the structure of the data changed drastically. 
 - For the load, we created a function that takes in any dataframe as an input and converts to a Mongo db/collection set.
-- Also preferred Mongo as we don’t need to set up the create scripts and other db level information.  Was instantaneous to see our data from the dataframes
+- Also preferred Mongo as we don√ït need to set up the create scripts and other db level information.  Was instantaneous to see our data from the dataframes
 - Schema-less database helped with this dataset we chose.
 - If the twitter data were to be large data set, Mongo will handle it faster (though for the project we limited the records)
 
